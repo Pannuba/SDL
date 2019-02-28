@@ -5,7 +5,8 @@
 
 typedef struct foto
 {
-	SDL_Surface *immagine;
+	SDL_Surface *loadedSurface;
+	SDL_Texture *texture;
 	int posX;
 	int posY;
 } Foto;
@@ -14,5 +15,6 @@ void initialize(Foto *foto);
 
 void handleEvent(Foto *foto, SDL_Surface **currentSurface);
 
+void render(Foto *foto, SDL_Renderer *renderer);
 
 #endif
