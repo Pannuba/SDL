@@ -8,6 +8,7 @@ typedef enum {false, true} bool;
 int main()
 {
 	SDL_Window *window = NULL;
+	SDL_Renderer *renderer = NULL;
 	SDL_Surface *screenSurface, *currentSurface = NULL, *image[TOTAL_KEYS];
 	SDL_Event event;
 	Foto foto;
@@ -22,6 +23,8 @@ int main()
 	
 	else
 	{
+		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
 		if (loadMedia(image) == false)
 		{
 			fprintf(stderr, "Failed to load media\n");
@@ -38,8 +41,9 @@ int main()
 
 			handleEvent(&foto, &currentSurface);
 
-			SDL_BlitSurface(currentSurface, NULL, screenSurface, NULL);
-			SDL_UpdateWindowSurface(window);
+			SDL_RenderClear(renderer);
+			render(&foto, renderer);
+			SDL_RenderPresent(renderer);
 		}
 	}
 
