@@ -7,6 +7,8 @@ typedef struct foto
 {
 	SDL_Surface *loadedSurface;
 	SDL_Texture *texture;
+	int width;
+	int height;
 	int posX;
 	int posY;
 } Foto;

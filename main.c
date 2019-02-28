@@ -40,9 +40,10 @@ int main()
 			}
 
 			handleEvent(&foto, &currentSurface);
-
+			
 			SDL_RenderClear(renderer);
 			render(&foto, renderer);
+
 			SDL_RenderPresent(renderer);
 		}
 	}
