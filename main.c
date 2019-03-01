@@ -1,5 +1,5 @@
 #include "init.h"
-#include "foto.h"
+#include "object.h"
 #include "timer.h"
 
 #define TOTAL_KEYS 2
@@ -10,10 +10,10 @@ int main()
 {
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
-	SDL_Surface *screenSurface, *currentSurface = NULL, *image[TOTAL_KEYS];
+	SDL_Surface *screenSurface, *image[TOTAL_KEYS];
 	SDL_Event event;
-	Foto foto;
-	initialize(&foto);
+	Object foto;
+	
 	bool quit = false;
 	
 	if (init(&window, &screenSurface) == false)
@@ -25,22 +25,15 @@ int main()
 	else
 	{
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-
-		if (loadMedia(image) == false)
-		{
-			fprintf(stderr, "Failed to load media\n");
-			return 0;
-		}
+		
+		initialize(renderer, &foto, "./media/mini.png");
 
 		while (!quit)
 		{
-			while (SDL_PollEvent(&event) != 0)
-			{
-				if (event.type == SDL_QUIT)
-					quit = true;				
-			}
+			if ((SDL_PollEvent(&event) != 0) && (event.type == SDL_QUIT))
+				quit = true;				
 
-			handleEvent(&foto, &currentSurface);
+			handleEvent(&foto);
 
 			SDL_RenderClear(renderer);
 			render(&foto, renderer);
