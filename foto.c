@@ -1,33 +1,11 @@
 #include "foto.h"
-#include <stdio.h>
 
-void initialize(Foto *foto)
-{
-	foto->texture = NULL;
-	foto->loadedSurface = IMG_Load("./media/mini.png");
-
-	if (foto->loadedSurface == NULL)
-	{
-		fprintf(stderr, "Cannot load codice.png: %s\n", SDL_GetError());
-		return;
-	}
-
-	foto->width = foto->loadedSurface->w;
-	foto->height = foto->loadedSurface->h;
-
-	foto->posX = 0;
-	foto->posY = 0;
-}
-
-void handleEvent(Foto *foto, SDL_Surface **currentSurface)
+void handleEvent(Object *foto)
 {
 	const Uint8 *currentKeyStates = SDL_GetKeyboardState(NULL);
 	
 	if (currentKeyStates[SDL_SCANCODE_LEFT])
-	{
 		foto->posX--;
-		//*currentSurface = foto->loadedSurface; carico già in initialize
-	}
 
 	if (currentKeyStates[SDL_SCANCODE_RIGHT])
 		foto->posX++;
@@ -37,11 +15,16 @@ void handleEvent(Foto *foto, SDL_Surface **currentSurface)
 
 	if (currentKeyStates[SDL_SCANCODE_DOWN])
 		foto->posY++;
-}
+	
+	if (currentKeyStates[SDL_SCANCODE_LEFT] && currentKeyStates[SDL_SCANCODE_LSHIFT])
+		foto->posX = foto->posX - 8;
 
-void render(Foto *foto, SDL_Renderer *renderer)
-{
-	SDL_Rect rect = {foto->posX, foto->posY, foto->width, foto->height};
-	foto->texture = SDL_CreateTextureFromSurface(renderer, foto->loadedSurface);
-	SDL_RenderCopy(renderer, foto->texture, NULL, &rect);	//erect lol
+	if (currentKeyStates[SDL_SCANCODE_RIGHT] && currentKeyStates[SDL_SCANCODE_LSHIFT])
+		foto->posX = foto->posX + 8;
+	
+	if (currentKeyStates[SDL_SCANCODE_UP] && currentKeyStates[SDL_SCANCODE_LSHIFT])
+		foto->posY = foto->posY - 8;
+
+	if (currentKeyStates[SDL_SCANCODE_DOWN] && currentKeyStates[SDL_SCANCODE_LSHIFT])
+		foto->posY = foto->posY + 8;
 }

@@ -1,4 +1,4 @@
-OBJS = main.c init.c foto.c timer.c
+OBJS = main.c init.c object.c timer.c foto.c
 CC = gcc
 COMPILER_FLAGS = -std=c11 -Wall -Wextra -pedantic -O2
 LINKER_FLAGS = -lSDL2 -lSDL2_image
