@@ -1,6 +1,8 @@
 #include "init.h"
 #include "object.h"
 #include "timer.h"
+#include "foto.h"
+#include <SDL2/SDL_mixer.h>
 
 #define TOTAL_KEYS 2
 
@@ -10,13 +12,15 @@ int main()
 {
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
-	SDL_Surface *screenSurface, *image[TOTAL_KEYS];
+	SDL_Surface  *image[TOTAL_KEYS];
 	SDL_Event event;
-	Object foto;
+	Object fotoInt, fotoIf;
+
+	Mix_Music *music = NULL;
 	
 	bool quit = false;
 	
-	if (init(&window, &screenSurface) == false)
+	if (init(&window) == false)
 	{
 		fprintf(stderr, "Failed to initialize\n");
 		return 0;
@@ -26,21 +30,24 @@ int main()
 	{
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 		
-		initialize(renderer, &foto, "./media/mini.png");
+		initialize(renderer, &fotoInt, "./media/mini.png");
+		initialize(renderer, &fotoIf, "./media/if.png");
 
 		while (!quit)
 		{
 			if ((SDL_PollEvent(&event) != 0) && (event.type == SDL_QUIT))
 				quit = true;				
 
-			handleEvent(&foto);
+			handleEvent(&fotoInt, SDL_SCANCODE_W, SDL_SCANCODE_S, SDL_SCANCODE_A, SDL_SCANCODE_D);
+			handleEvent(&fotoIf, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN, SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT);
 
 			SDL_RenderClear(renderer);
-			render(&foto, renderer);
+			render(&fotoInt, renderer);
+			render(&fotoIf, renderer);
 
 			SDL_RenderPresent(renderer);
 
-			timer();
+			//timer();
 		}
 	}
 
