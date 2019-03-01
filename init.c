@@ -48,14 +48,16 @@ int init(SDL_Window **window, SDL_Surface **screenSurface)
 
 int loadMedia(SDL_Surface *image[])	/* And that's how ya do it, bois */
 {
-	image[KEY_LEFT] = SDL_LoadBMP("./media/preview.bmp");
+	/*image[KEY_LEFT] = SDL_LoadBMP("./media/preview.bmp");
 	image[KEY_RIGHT] = IMG_Load("./media/preview.png");
 
 	if (image[KEY_LEFT] == NULL || image[KEY_RIGHT] == NULL)
 	{
 		fprintf(stderr, "Cannot load preview.bmp or preview.png: %s\n", SDL_GetError());
 		return 0;
-	}
+	}*/
+
+	
 
 	return 1;
 }
