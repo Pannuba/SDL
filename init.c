@@ -1,4 +1,3 @@
-
 #include "init.h"
 
 #define SCREEN_WIDTH 640
@@ -10,11 +9,11 @@ enum keypresses
 	KEY_RIGHT,
 };
 
-int init(SDL_Window **window, SDL_Surface **screenSurface)
+int init(SDL_Window **window)
 {
 	int imgFlags = IMG_INIT_PNG;
 
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
 	{
 		fprintf(stderr, "Cannot initialize SDL: %s\n", SDL_GetError());
 		return 0;
@@ -38,16 +37,15 @@ int init(SDL_Window **window, SDL_Surface **screenSurface)
 				printf( "Cannot initialize image: %s\n", IMG_GetError());
 				return 0;
 			}
-			else
-				*screenSurface = SDL_GetWindowSurface(*window);
+			
 		}
 	}
 
 	return 1;
 }
 
-int loadMedia(SDL_Surface *image[])	/* And that's how ya do it, bois */
-{
+//int loadMedia(SDL_Surface *image[])	/* And that's how ya do it, bois */
+//{
 	/*image[KEY_LEFT] = SDL_LoadBMP("./media/preview.bmp");
 	image[KEY_RIGHT] = IMG_Load("./media/preview.png");
 
@@ -59,8 +57,8 @@ int loadMedia(SDL_Surface *image[])	/* And that's how ya do it, bois */
 
 	
 
-	return 1;
-}
+//	return 1;
+//}
 
 void endSession(SDL_Window **window, SDL_Surface **image)
 {

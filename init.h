@@ -4,9 +4,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-int init(SDL_Window **window, SDL_Surface **screenSurface);
+int init(SDL_Window **window);
 
-int loadMedia(SDL_Surface *image[]);
+//int loadMedia(SDL_Surface *image[]);
 
 void endSession(SDL_Window **window, SDL_Surface **image);
 

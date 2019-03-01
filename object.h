@@ -16,8 +16,6 @@ typedef struct object
 
 void initialize(SDL_Renderer *renderer, Object *object, char* path);
 
-void handleEvent(Object *object);
-
 void render(Object *object, SDL_Renderer *renderer);
 
 #endif

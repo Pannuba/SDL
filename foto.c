@@ -1,19 +1,19 @@
 #include "foto.h"
 
-void handleEvent(Object *foto)
+void handleEvent(Object *foto, Uint8 dir1, Uint8 dir2, Uint8 dir3, Uint8 dir4)
 {
 	const Uint8 *currentKeyStates = SDL_GetKeyboardState(NULL);
 	
-	if (currentKeyStates[SDL_SCANCODE_LEFT])
+	if (currentKeyStates[dir3])
 		foto->posX--;
 
-	if (currentKeyStates[SDL_SCANCODE_RIGHT])
+	if (currentKeyStates[dir4])
 		foto->posX++;
 	
-	if (currentKeyStates[SDL_SCANCODE_UP])
+	if (currentKeyStates[dir1])
 		foto->posY--;
 
-	if (currentKeyStates[SDL_SCANCODE_DOWN])
+	if (currentKeyStates[dir2])
 		foto->posY++;
 	
 	if (currentKeyStates[SDL_SCANCODE_LEFT] && currentKeyStates[SDL_SCANCODE_LSHIFT])
