@@ -1,8 +1,7 @@
 #include "init.h"
 #include "foto.h"
+#include "timer.h"
 
-#define SCREEN_FPS 60
-#define SCREEN_TICKS_PER_FRAME  (1000 / SCREEN_FPS)
 #define TOTAL_KEYS 2
 
 typedef enum {false, true} bool;
@@ -16,8 +15,6 @@ int main()
 	Foto foto;
 	initialize(&foto);
 	bool quit = false;
-	int seconds = 0, countedFrames = 0;
-	float avgFPS = 0;
 	
 	if (init(&window, &screenSurface) == false)
 	{
@@ -43,15 +40,6 @@ int main()
 					quit = true;				
 			}
 
-			countedFrames++;
-			seconds = SDL_GetTicks() / 1000;
-			printf("%d\n", seconds);
-			avgFPS = countedFrames / (float)seconds;	//creare file timer!
-			printf("FPS: %f\n", avgFPS);
-
-			if (avgFPS > 200000000)
-				avgFPS = 0;
-
 			handleEvent(&foto, &currentSurface);
 
 			SDL_RenderClear(renderer);
@@ -59,10 +47,7 @@ int main()
 
 			SDL_RenderPresent(renderer);
 
-			/*countedFrames++;printf("ticks %d\n", SDL_GetTicks());
-int ticks = SDL_GetTicks();
-			if (ticks < SCREEN_TICKS_PER_FRAME)
-				SDL_Delay(SCREEN_TICKS_PER_FRAME - ticks);*/
+			timer();
 		}
 	}
 
