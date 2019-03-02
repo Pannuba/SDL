@@ -32,6 +32,9 @@ int main()
 		Mix_PlayMusic(music, 1);
 		initialize(renderer, &fotoInt, "./media/mini.png");
 		initialize(renderer, &fotoIf, "./media/if.png");
+		
+		fotoIf.posX = 200;//!!!!!!!!!!!!
+		fotoIf.posY = 200;//!!!!!!!!!!!!
 
 		while (!quit)
 		{
@@ -40,6 +43,11 @@ int main()
 
 			handleEvent(&fotoInt, SDL_SCANCODE_W, SDL_SCANCODE_S, SDL_SCANCODE_A, SDL_SCANCODE_D);
 			handleEvent(&fotoIf, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN, SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT);
+			
+			if (checkCollision(&fotoIf, &fotoInt)//!!!!!!!!!!!!
+			{
+				// v collision detection
+			}
 
 			SDL_RenderClear(renderer);
 			render(&fotoInt, renderer);
@@ -47,7 +55,7 @@ int main()
 
 			SDL_RenderPresent(renderer);
 
-			//timer();
+			timer();
 		}
 	}
 
