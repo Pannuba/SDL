@@ -20,16 +20,16 @@ int main()
 	
 	bool quit = false;
 	
-	if (init(&window) == false)
+	if (!init(&window, &renderer))
 	{
 		fprintf(stderr, "Failed to initialize\n");
 		return 0;
 	}
 	
 	else
-	{
-		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-		
+	{	
+		music = Mix_LoadMUS("./media/music.mp3");
+		Mix_PlayMusic(music, 1);
 		initialize(renderer, &fotoInt, "./media/mini.png");
 		initialize(renderer, &fotoIf, "./media/if.png");
 
