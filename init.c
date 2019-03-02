@@ -9,7 +9,7 @@ enum keypresses
 	KEY_RIGHT,
 };
 
-int init(SDL_Window **window)
+int init(SDL_Window **window, SDL_Renderer **renderer)
 {
 	int imgFlags = IMG_INIT_PNG;
 
@@ -19,26 +19,33 @@ int init(SDL_Window **window)
 		return 0;
 	}
 
-	else
+	*window = SDL_CreateWindow("Tom & Jerry funny animations", SDL_WINDOWPOS_UNDEFINED,
+				SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	
+	if (*window == NULL)
 	{
-		*window = SDL_CreateWindow("Tom & Jerry funny animations", SDL_WINDOWPOS_UNDEFINED,
-					SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-		
-		if (*window == NULL)
-		{
-			fprintf(stderr, "Cannot create window: %s\n", SDL_GetError());
-			return 0;
-		}
-		
-		else
-		{			
-			if ((IMG_Init(imgFlags) & imgFlags) == 0)
-			{
-				printf( "Cannot initialize image: %s\n", IMG_GetError());
-				return 0;
-			}
-			
-		}
+		fprintf(stderr, "Cannot create window: %s\n", SDL_GetError());
+		return 0;
+	}
+
+	*renderer = SDL_CreateRenderer(*window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+	if (*renderer == NULL)
+	{
+		fprintf(stderr, "Cannot create renderer: %s\n", SDL_GetError());
+		return 0;
+	}
+
+	if ((IMG_Init(imgFlags) & imgFlags) == 0)
+	{
+		fprintf(stderr, "Cannot initialize image: %s\n", IMG_GetError());
+		return 0;
+	}
+
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0)
+	{
+		fprintf(stderr, "Cannot initialize SDL_mixer: %s\n", Mix_GetError());
+		return 0;
 	}
 
 	return 1;
