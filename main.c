@@ -44,7 +44,7 @@ int main()
 			handleEvent(&fotoInt, SDL_SCANCODE_W, SDL_SCANCODE_S, SDL_SCANCODE_A, SDL_SCANCODE_D);
 			handleEvent(&fotoIf, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN, SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT);
 			
-			if (checkCollision(&fotoIf, &fotoInt)//!!!!!!!!!!!!
+			if (checkCollision(&fotoIf, &fotoInt))//!!!!!!!!!!!!
 			{
 				// v collision detection
 			}
